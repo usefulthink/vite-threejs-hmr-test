@@ -31,6 +31,15 @@ function init({
 
   scene.add(box);
 
+  // ---- HMR
+  if (import.meta.hot) {
+    import.meta.hot.accept('./hmr-test-material', newModule => {
+      console.log('whooop', {newModule});
+      box.material = new newModule.HmrTestMaterial();
+    });
+  }
+  // ---- END HMR
+
   return (t: number) => {
     box.position.y = 1 + Math.sin((2 * Math.PI * t) / 4000) / 2;
     box.rotation.set(
@@ -89,23 +98,5 @@ window.addEventListener('resize', ev => {
 });
 
 document.body.appendChild(renderer.domElement);
-
-// ---- HOT MODULE RELOADING
-
-if (import.meta.hot) {
-  import.meta.hot.accept('./hmr-test-material', newModule => {
-    console.log({newModule});
-    scene.traverse(o => {
-      const mesh = o as Mesh;
-      if (!mesh.isMesh) {
-        return;
-      }
-
-      if ((mesh.material as HmrTestMaterial).isHmrTestMaterial) {
-        mesh.material = new newModule.HmrTestMaterial();
-      }
-    });
-  });
-}
 
 export {};
