@@ -1,0 +1,18 @@
+{
+  "name": "hello-vite",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "typecheck . && vite build"
+  },
+  "dependencies": {
+    "@types/three": "0.141.0",
+    "three": "0.141.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.7.1",
+    "typescript": "^4.0.3",
+    "vite": "^2.9.12"
+  }
+}
